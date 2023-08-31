@@ -1,5 +1,6 @@
 import time
 import hashlib
+chars = ["~","!","@","#","$","%","^","&","*","-","_","=","+","|","\\","/",",",";",":",""]
 
 def calculate_sha256_hash(input_string):
 
@@ -9,13 +10,18 @@ def calculate_sha256_hash(input_string):
     return hash_hex
 
 
-with open('sha256_hash.txt', 'w') as file:
-
+with open('hash_sha256.txt', 'w') as file:
     while True:
         current_utc_timestamp = int(time.time())
+        for i in chars:
+                text0 = f"test@test.com{i}{current_utc_timestamp}"
+                text1 = f"{current_utc_timestamp}{i}test@test.com"
+                # print(text0)
+                # print(text1)
+                # file.write(f"{text0}\n{text1}\n")
+                sha256_hash0 = calculate_sha256_hash(text0)
+                sha256_hash1 = calculate_sha256_hash(text1)
+                print(f"{sha256_hash0}\n{sha256_hash1}\n")
 
-        input_string = f"test@test.com-{current_utc_timestamp}"
-        sha256_hash = calculate_sha256_hash(input_string)
-        print(sha256_hash)
-        file.write(f"{sha256_hash}\n")
-        time.sleep(1)
+                file.write(f"{sha256_hash0}\n{sha256_hash1}\n")
+        time.sleep(0.8)
